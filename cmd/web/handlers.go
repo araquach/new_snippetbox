@@ -14,7 +14,7 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	}
 
 	files := []string{
-		"./ui/html/homo.page.gohtml",
+		"./ui/html/home.page.gohtml",
 		"./ui/html/base.layout.gohtml",
 		"./ui/html/footer.partial.gohtml",
 	}
