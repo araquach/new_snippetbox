@@ -1,6 +1,7 @@
 package main
 
 import (
+	"contra-design.com/new_snippetbox/pkg/models/postgres"
 	"database/sql"
 	"flag"
 	"log"
@@ -13,6 +14,7 @@ import (
 type application struct {
 	errorLog *log.Logger
 	infoLog *log.Logger
+	snippets *postgres.SnippetModel
 }
 
 func main() {
@@ -33,6 +35,7 @@ func main() {
 	app := &application{
 		errorLog:	errorLog,
 		infoLog: 	infoLog,
+		snippets:	&postgres.SnippetModel{DB:db},
 	}
 
 	srv := &http.Server{
