@@ -1,25 +1,25 @@
 package main
 
 import (
-	"contra-design.com/new_snippetbox/pkg/models/postgres"
+	"contra-design.com/new_snippetbox/pkg/models/mysql"
 	"database/sql"
 	"flag"
 	"log"
 	"net/http"
 	"os"
 
-	_ "github.com/lib/pq"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 type application struct {
 	errorLog *log.Logger
 	infoLog *log.Logger
-	snippets *postgres.SnippetModel
+	snippets *mysql.SnippetModel
 }
 
 func main() {
 	addr := flag.String("addr", ":4000", "HTTP network address")
-	dsn := flag.String("dsn", "host=localhost  port=5432  user=adam-macbook  password=  dbname=postgres  sslmode=disable", "")
+	dsn := flag.String("dsn", "root@/snippetbox?parseTime=true", "MySQL data source name")
 	flag.Parse()
 
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
@@ -35,7 +35,7 @@ func main() {
 	app := &application{
 		errorLog:	errorLog,
 		infoLog: 	infoLog,
-		snippets:	&postgres.SnippetModel{DB:db},
+		snippets:	&mysql.SnippetModel{DB:db},
 	}
 
 	srv := &http.Server{
@@ -50,7 +50,7 @@ func main() {
 }
 
 func openDB(dsn string) (*sql.DB, error) {
-	db, err := sql.Open("postgres", dsn)
+	db, err := sql.Open("mysql", dsn)
 	if err != nil {
 		return nil, err
 	}
