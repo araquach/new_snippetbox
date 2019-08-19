@@ -4,6 +4,7 @@ import (
 	"contra-design.com/new_snippetbox/pkg/models/mysql"
 	"database/sql"
 	"flag"
+	"html/template"
 	"log"
 	"net/http"
 	"os"
@@ -15,6 +16,7 @@ type application struct {
 	errorLog *log.Logger
 	infoLog *log.Logger
 	snippets *mysql.SnippetModel
+	templateCache map[string]*template.Template
 }
 
 func main() {
@@ -31,11 +33,16 @@ func main() {
 	// We also defer a call to db.Close(), so that the connection pool is closed // before the main() function exits.
 	defer db.Close()
 
+	templateCache, err := newTemplateCache("./ui/html/")
+	if err != nil {
+		errorLog.Fatal(err)
+	}
 
 	app := &application{
 		errorLog:	errorLog,
 		infoLog: 	infoLog,
 		snippets:	&mysql.SnippetModel{DB:db},
+		templateCache: templateCache,
 	}
 
 	srv := &http.Server{
