@@ -56,7 +56,7 @@ func (app *application) createSnippet(w http.ResponseWriter, r *http.Request) {
 
 	form := forms.New(r.PostForm)
 	form.Required("title", "content", "expires")
-	form.MaxLenght("title", 100)
+	form.MaxLength("title", 100)
 	form.PermittedValues("expires", "365", "7", "1")
 
 	if !form.Valid() {
