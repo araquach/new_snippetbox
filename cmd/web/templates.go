@@ -3,12 +3,15 @@ package main
 import (
 	"contra-design.com/new_snippetbox/pkg/models"
 	"html/template"
+	"net/url"
 	"path/filepath"
 	"time"
 )
 
 type templateData struct {
 	CurrentYear int
+	FormData url.Values
+	FormErrors map[string]string
 	Snippet 	*models.Snippet
 	Snippets 	[]*models.Snippet
 }
