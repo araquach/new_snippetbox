@@ -55,7 +55,6 @@ func noSurf(next http.Handler) http.Handler {
 		Path:     "/",
 		Secure:   true,
 	})
-
 	return csrfHandler
 }
 
