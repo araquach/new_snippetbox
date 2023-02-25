@@ -8,6 +8,6 @@ require (
 	github.com/golangcollege/sessions v1.1.0
 	github.com/justinas/alice v0.0.0-20171023064455-03f45bd4b7da
 	github.com/justinas/nosurf v0.0.0-20190416172904-05988550ea18
-	golang.org/x/crypto v0.0.0-20190605123033-f99c8df09eb5
+	golang.org/x/crypto v0.1.0
 	google.golang.org/appengine v1.6.1 // indirect
 )
